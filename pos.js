@@ -18,7 +18,7 @@ function printReceipt(barcodes) {
 }
 
 function countBarcodes(barcodes) {
-    let barcode = barcodes.reduce(function (barcodes, barcode) {
+    let barcode = barcodes.reduce(function(barcodes, barcode) {
         if (barcode in barcodes) barcodes[barcode]++;
         else barcodes[barcode] = 1;
         return barcodes;
@@ -28,13 +28,13 @@ function countBarcodes(barcodes) {
 
 function getItems(barcode) {
     let items = [];
-    for (let attr in bacode) {
+    for (let attr in barcode) {
         // 如果barcode在data中未找到，count为0
         let obj = { id: attr, name: attr, count: 0, price: 0 };
         let i;
         for (i = 0; i < data.length; i++) {
             if (attr == data[i].id) {
-                obj.count = bacode[attr];
+                obj.count = barcode[attr];
                 obj.name = data[i].name;
                 obj.price = data[i].price;
                 break;
@@ -62,8 +62,8 @@ function getReceipt(items) {
         }
     });
     if (!error) {
-        receipt += "------------------------------------------------------------\nPrice: "
-            + money;
+        receipt += "------------------------------------------------------------\nPrice: " +
+            money;
         return receipt;
     } else {
         errorMessage = errorMessage.substring(0, errorMessage.length - 1) + " are invalid barcodes.";
@@ -73,4 +73,7 @@ function getReceipt(items) {
 
 module.exports = {
     printReceipt,
+    countBarcodes,
+    getItems,
+    getReceipt,
 }
