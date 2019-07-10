@@ -42,13 +42,12 @@ function getReceipt(items) {
             errorMessage += item.id + ","
         }
         if (!error) {
-            receipt += item.name + "\t\t\t\t\t" + item.price + "\t\t\t" + item.count + "\n";
+            receipt += `${item.name}\t\t\t\t\t${item.price}\t\t\t${item.count}\n`;
             money += item.count * item.price;
         }
     });
     if (!error) {
-        receipt += "------------------------------------------------------------\nPrice: " +
-            money;
+        receipt += "------------------------------------------------------------\nPrice: " + money;
         return receipt;
     } else {
         errorMessage = errorMessage.substring(0, errorMessage.length - 1) + " are invalid barcodes.";
