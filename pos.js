@@ -1,15 +1,4 @@
-const data = [
-    { "id": "0001", "name": "Coca Cola", "price": 3 },
-    { "id": "0002", "name": "Diet Coke", "price": 4 },
-    { "id": "0003", "name": "Pepsi-Cola", "price": 5 },
-    { "id": "0004", "name": "Mountain Dew", "price": 6 },
-    { "id": "0005", "name": "Dr Pepper", "price": 7 },
-    { "id": "0006", "name": "Sprite", "price": 8 },
-    { "id": "0007", "name": "Diet Pepsi", "price": 9 },
-    { "id": "0008", "name": "Diet Mountain Dew", "price": 10 },
-    { "id": "0009", "name": "Diet Dr Pepper", "price": 11 },
-    { "id": "0010", "name": "Fanta", "price": 12 }
-];
+const data = require('./itemsData')
 
 function printReceipt(barcodes) {
     let barcode = countBarcodes(barcodes);
@@ -30,17 +19,13 @@ function getItems(barcode) {
     let items = [];
     for (let attr in barcode) {
         // 如果barcode在data中未找到，count为0
-        let obj = { id: attr, name: attr, count: 0, price: 0 };
-        let i;
-        for (i = 0; i < data.length; i++) {
-            if (attr == data[i].id) {
-                obj.count = barcode[attr];
-                obj.name = data[i].name;
-                obj.price = data[i].price;
-                break;
-            }
+        let item = data.getItemFromData(attr);
+        if (item != null) {
+            item.count = barcode[attr];
+            items.push(item);
+        } else {
+            items.push({ "id": attr, "count": 0 });
         }
-        items.push(obj);
     }
     return items;
 }
